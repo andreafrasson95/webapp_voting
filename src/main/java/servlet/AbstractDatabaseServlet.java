@@ -1,4 +1,4 @@
-package servlet;
+package it.frassi.servlet;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
