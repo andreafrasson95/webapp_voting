@@ -25,11 +25,11 @@ public class Link{
 	/**
 	 * Creates a new Link
 	 *
-	 *@param id
+	 * @param id
 	 *       ID to identify the link
-     *@param used
+     * @param used
      *       Bool that represent if link has been used or not
-     *@param poll
+     * @param poll
 	 *       The competition which the link belongs
 	 */
  	public Link(String id, Boolean used, int poll){
