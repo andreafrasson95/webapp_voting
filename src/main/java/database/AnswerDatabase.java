@@ -1,13 +1,16 @@
 package it.frassi.database;
 
-import it.frassi.resource.Poll;
+import it.frassi.resource.Answer;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PollDatabase{
+import java.util.List;
+import java.util.ArrayList;
+
+public class AnswerDatabase{
 	
 	/**
 	 * Connection to database 
@@ -15,35 +18,36 @@ public class PollDatabase{
 	private final Connection con;
 	
 	/**
-     * Object for querying/manipulating polls in the database.
+     * Object for querying/manipulating answers in the database.
      *
      * @param con	 
      *	          connection to the database
      */	 
 	
-	public PollDatabase(final Connection con){
+	public AnswerDatabase(final Connection con){
 		this.con=con;
 	}
 	
 	/**
-     * Retrive Poll in the Database, if not found return null
+     * Retrive all the answer in the Database, given a Poll
 	 *
 	 * @param id 
 	 *            The id of the Poll 
 	 *
-	 * @return Poll object 
+	 * @return List of Answers
      *
      * @throws SQLException	 
      *	          if error with the database
 	 */	 
 	 
-	 public Poll retrievePoll(int id) throws SQLException{
+	 public List<Answer> retrieveAnswers(int id) throws SQLException{
 		 
-		 String query="SELECT * FROM poll.Voting WHERE votingid=?;";
+		 String query="SELECT * FROM poll.Answers WHERE votingid=?;";
 		 
 		 PreparedStatement pstmt=null;
 		 ResultSet rs=null;
-		 Poll ret=null;
+		 
+		 List<Answer> lista=new ArrayList<>();
 		 
 		 try{
 			  pstmt=con.prepareStatement(query);
@@ -51,12 +55,8 @@ public class PollDatabase{
 			  
 			  rs=pstmt.executeQuery();
 			  
-			  if(rs.next()){
-			         ret=new Poll(rs.getInt(1), rs.getString(2));
-			  }
-			  else
-			  {
-				  ret=null;
+			  while(rs.next()){
+			         lista.add(new Answer(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4)));
 			  }
 		}
 		 
@@ -66,8 +66,8 @@ public class PollDatabase{
 			}
 	     con.close();
 		 }
-	   
- 	   return ret;
+	 
+	    return lista;
 	 
 	 }
 }

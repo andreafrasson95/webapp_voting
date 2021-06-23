@@ -23,7 +23,6 @@ public class Poll{
 	 * @param id
 	 *       ID to identify the poll
      * @param question
-     * @param poll
 	 *       The text of the question
 	 */
  	public Poll(int id, String question){

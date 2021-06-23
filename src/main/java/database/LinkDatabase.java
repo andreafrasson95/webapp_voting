@@ -33,6 +33,9 @@ public class LinkDatabase{
 	/**
      * Retrive Link in the Database
 	 *
+	 * @param link
+	 *            The link that has to be searched in the database
+	 *
 	 * @return Link object if found, null otherwise
      *
      * @throws SQLException	 
