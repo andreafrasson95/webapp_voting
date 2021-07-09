@@ -15,11 +15,6 @@ public class LinkDatabase{
 	private final Connection con;
 	
 	/**
-	 * SQL query 
-	 */
-	private static final String query="SELECT * FROM poll.Link WHERE linkid=?";
-	
-	/**
      * Object for querying/manipulating links in the database.
      *
      * @param con	 
@@ -43,6 +38,8 @@ public class LinkDatabase{
 	 */	 
 	 
 	 public Link retrieveLink(String link) throws SQLException{
+		 
+		 String query="SELECT * FROM poll.Link WHERE linkid=?";
 		 
 		 PreparedStatement pstmt=null;
 		 ResultSet rs=null;
@@ -68,6 +65,31 @@ public class LinkDatabase{
 			}
 	     con.close();
 		 }
+	 }
+	 
+	 public int lockLink(String link) throws SQLException{
+		 
+		 String query="UPDATE poll.Link SET used=True WHERE linkid=?";
+		 
+		 PreparedStatement pstmt=null;
+		 int rs;
+		 
+		 try{
+		     pstmt=con.prepareStatement(query);
+			 pstmt.setString(1,link);
+			 
+			 rs=pstmt.executeUpdate();
+		 }
+		 
+		 finally{
+			 
+			 if(pstmt != null){
+				 pstmt.close();
+			 }
+			 con.close();
+		 }
+		 
+		 return rs;
 	 }
 }
 			  

@@ -8,7 +8,14 @@
 	<display-name>poll-webapp</display-name>
 	<description>Web Application for polls</description>
 
-     
+    <servlet>
+	<servlet-name>VoteServlet</servlet-name>
+		<servlet-class>it.frassi.servlet.VoteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>VoteServlet</servlet-name>
+		<url-pattern>/vote/*</url-pattern>
+	</servlet-mapping>
 	 
 	 
 	

@@ -61,7 +61,7 @@ public class Answer{
 	 *
 	 * @return Answer
 	 */
-	public String getAnswer(){
+	public String getText(){
 		return text;
 	}
 	
