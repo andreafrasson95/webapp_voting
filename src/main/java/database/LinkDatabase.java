@@ -67,6 +67,18 @@ public class LinkDatabase{
 		 }
 	 }
 	 
+	 /**
+     * Flag the Link as "used" so it cannot be used anymore
+	 *
+	 * @param link
+	 *            The link that has to be flagged "used"
+	 *
+	 * @return 0 if success, 1 otherwise
+     *
+     * @throws SQLException	 
+     *	          if error with the database
+	 */	 
+	 
 	 public int lockLink(String link) throws SQLException{
 		 
 		 String query="UPDATE poll.Link SET used=True WHERE linkid=?";
@@ -88,7 +100,7 @@ public class LinkDatabase{
 			 }
 			 con.close();
 		 }
-		 
+		 //Todo Check the return valur
 		 return rs;
 	 }
 }

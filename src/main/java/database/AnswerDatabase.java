@@ -70,5 +70,50 @@ public class AnswerDatabase{
 	    return lista;
 	 
 	 }
+	 
+	 /**
+     * Add a vote for an Answer
+	 *
+	 * @param id 
+	 *            The id of answer
+	 *
+	 * @param poll
+	 *            The id of the poll who owns the answer
+	 *
+	 * @return 0 if success, 1 otherwise
+     *
+     * @throws SQLException	 
+     *	          if error with the database
+	 */	 
+	 
+	 
+	 public int voteAnswer(int poll, int id) throws SQLException{
+		 
+		 
+		 String query="UPDATE poll.Answers SET votes_received = votes_received + 1 WHERE answerid=? and votingid=?";
+		 
+		 PreparedStatement pstmt=null;
+		 int rs;
+		 
+		 try{
+			 
+			 pstmt=con.prepareStatement(query);
+			 pstmt.setInt(1, id);
+			 pstmt.setInt(2, poll);
+			 
+			 rs=pstmt.executeUpdate();
+		 }
+		 
+		 finally{
+			 if(pstmt !=null){
+				 pstmt.close();
+			 }
+			 con.close();
+		 }
+		 
+		 return rs;
+	 }
+		  
+		 
 }
 			  

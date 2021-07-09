@@ -69,6 +69,7 @@ public class VoteServlet extends AbstractDatabaseServlet{
 		
 		Link link=null;
 		Message m=null;
+		String answer=null;
 		
 		try{
 			
@@ -88,6 +89,9 @@ public class VoteServlet extends AbstractDatabaseServlet{
 				else{
 					
 					new LinkDatabase(getDataSource().getConnection()).lockLink(link.getId());
+					
+					answer= req.getParameter(Integer.toString(link.getPoll()));
+					
 					
 					//TODO Finish
 					
