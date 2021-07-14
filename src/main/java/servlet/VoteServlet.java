@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import java.util.List;
+import org.json.JSONObject;
 
 
 public class VoteServlet extends AbstractDatabaseServlet{
@@ -32,23 +33,33 @@ public class VoteServlet extends AbstractDatabaseServlet{
 		Link link=null;
         Poll poll=null;
         List<Answer> answers=null;
+		Message m=null;
 		
 		try{
 			//Retrive Link from DB
 			link=new LinkDatabase(getDataSource().getConnection()).retrieveLink(link_url);
 			
-	        //TODO: Case Link==null or already used
+	        if(link==null)
+				m=new Message("Link non Esiste","100","Il link Non Esiste");
 			
-			//Retrieve The Poll
-			poll=new PollDatabase(getDataSource().getConnection()).retrievePoll(link.getPoll());
+			else{
+				if(link.getState() == true)
+					m=new Message("Link già usato","101","Link già usato per la votazione");
+					
+					else{
+				
+				        //Retrieve The Poll
+			            poll=new PollDatabase(getDataSource().getConnection()).retrievePoll(link.getPoll());
 			
-			//Retrieve the Answers
-			answers=new AnswerDatabase(getDataSource().getConnection()).retrieveAnswers(link.getPoll());
+			            //Retrieve the Answers
+			            answers=new AnswerDatabase(getDataSource().getConnection()).retrieveAnswers(link.getPoll());
 			
-			req.setAttribute("poll",poll);
-			req.setAttribute("answers",answers);
-            req.setAttribute("numero",link);			
-			
+			            req.setAttribute("poll",poll);
+			            req.setAttribute("answers",answers);
+                        req.setAttribute("numero",link);
+					}						
+			}
+		    req.setAttribute("message",m);
 		}
 		
 		catch (SQLException ex){ System.out.println("Problema");
@@ -70,6 +81,9 @@ public class VoteServlet extends AbstractDatabaseServlet{
 		Link link=null;
 		Message m=null;
 		String answer=null;
+		int a=0;
+		
+		JSONObject response = new JSONObject();
 		
 		try{
 			
@@ -77,29 +91,52 @@ public class VoteServlet extends AbstractDatabaseServlet{
 			link=new LinkDatabase(getDataSource().getConnection()).retrieveLink(link_url);
 			
 			if(link == null){
-				m=new Message("Link non Esiste","100","Il link Non Esist");
+				//m=new Message("Link non Esiste","100","Il link Non Esist");
+				response.put("isError",true);
+				response.put("message","Link does not Exist");
 			}
 			
 			else{
 				
 				if(link.getState() == true){
-					m=new Message("Link già usato","101","Mona");
+					//m=new Message("Link già usato","101","Mona");
+					response.put("isError",true);
+				    response.put("message","Link already used");
 				}
 				
 				else{
 					
-					new LinkDatabase(getDataSource().getConnection()).lockLink(link.getId());
+					a=new LinkDatabase(getDataSource().getConnection()).lockLink(link.getId());
 					
-					answer= req.getParameter(Integer.toString(link.getPoll()));
+					if (a==0){
+						//m=new Message("Errore nel Settaggio DB","102","DB");
+						response.put("isError",true);
+				        response.put("message","Error");
+					}
+					else{
+						
+					    answer= req.getParameter(Integer.toString(link.getPoll()));
 					
+					    a=new AnswerDatabase(getDataSource().getConnection()).voteAnswer(link.getPoll(),Integer.parseInt(answer));
 					
-					//TODO Finish
-					
-					
+					    if(a==0){
+							//m=new Message("Errore Aggiunta voto DB","103","DB");
+							response.put("isError",true);
+				            response.put("message","Error");
+						}
+						else{
+							response.put("isError",false);
+							response.put("message","Answer Registered Correctly");
+						}
+					}
 				}
-				
 			}
-			
+		    
+			res.setStatus(HttpServletResponse.SC_OK);
+            res.setContentType("application/json");
+            res.getWriter().write(response.toString()); 
+
+         		
 		}
 			
  
