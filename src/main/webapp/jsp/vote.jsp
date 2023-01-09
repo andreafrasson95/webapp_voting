@@ -17,23 +17,19 @@
 </head>
 
 <body>
- <!-- Esperimenti Navbar -->
+ <!-- Navbar -->
  
- <nav class="navbar navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      <img src="../resources/logo.png" alt="" width="90" height="72" class="d-inline-block align-text-center">
-      Rotaract Club Venezia Riviera del Brenta Voting System v 0.1
-    </a>
-  </div>
- </nav>
+ <nav class="navbar navbar-dark bg-primary"></nav>
  <br/><br/>
  
- <!--INIZIO PARTE SERIA -->
+ <!-- Domanda -->
  <div id="corpo" class="container text-center" >
  <c:choose>
    <c:when test="${not empty message}">
-      ${message.message} <br/>
+     <div class="alert alert-danger" role="alert">
+      ${message.message}
+     </div>
+     <br/>
    </c:when>
 
    <c:otherwise>    
@@ -41,33 +37,33 @@
 
 		 <p class="fs-1">${poll.question}</p>
            
-	         <c:forEach var="item" varStatus="loop" items="${requestScope.answers}">
+	     <c:forEach var="item" varStatus="loop" items="${requestScope.answers}">
         
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="${poll.id}" value="${item.id}" id="${item.id}" required>
+             <div class="form-check">
+                <input class="form-check-input" type="radio" name="${poll.id}" value="${item.id}" id="${item.id}" required>
 					
-				  	    <label class="form-check-label" for="${item.id}">
-                            ${item.text}
-                        </label>
+				<label class="form-check-label" for="${item.id}">
+                         ${item.text}
+                </label>
 						
-						<c:if test="${loop.last}">
-			               <div class="invalid-feedback">Ne devi Selezionare uno mona</div>
-						</c:if>
+				<c:if test="${loop.last}">
+			        <div class="invalid-feedback">Ne devi Selezionare uno mona</div>
+				</c:if>
 						
-					  </div>
-             </c:forEach>
+			 </div>
+         </c:forEach>
 		   
-			 <div class="text-center">
-			   <button class="btn btn-primary col-md-2" type="submit" id="submit">Invio</button>
-             </div>
-	 
-      </form>
+	     <div class="text-center">
+			<button class="btn btn-primary col-md-2" type="submit" id="submit">Invio</button>
+         </div>
+	  </form>
    </c:otherwise>
  </c:choose>
- 
  </div> 
- <!-- Javascript Script for the page --> 
- <script  src="../js/vote.js"></script>
+ <!-- Javascripts Script for the page --> 
+ <script  src="../js/vote.js"></script> 
+ <script  src="../js/utils.js"></script>
+ 
  <!-- Javascript Bootstrap -->
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 

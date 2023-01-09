@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+	<title>Admin Page</title>
+	
+	<!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- CSS Bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Custom CSS -->
+	<link rel="stylesheet" type="text/css" href="../css/style.css">
+	
+</head>
+
+<body>
+	    
+	<!-- Navbar -->
+ 
+    <nav class="navbar navbar-dark bg-primary"></nav>
+    <br/><br/>
+
+    <!-- Area Admin -->	
+	
+	<div id="body" class="container">
+		  <div class="row">
+             <div class="col-4">
+               <select class="form-select" id="select" multiple aria-label="multiple select example">
+               </select>
+             </div>
+			 <!-- Other Part of the Page -->
+             <div class="col-8">
+               <!-- Nav tabs -->
+               <ul class="nav nav-tabs" id="myTab" role="tablist">
+                 <li class="nav-item" role="presentation">
+                   <button class="nav-link active" id="link-tab" data-bs-toggle="tab" data-bs-target="#link" type="button" role="tab" aria-controls="link" aria-selected="true">Links</button>
+                 </li>
+                 <li class="nav-item" role="presentation">
+                   <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
+                 </li>
+                 <li class="nav-item" role="presentation">
+                   <button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false">Messages</button>
+                 </li>
+                 <li class="nav-item" role="presentation">
+                   <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Settings</button>
+                 </li>
+               </ul>
+
+               <!-- Tab panes -->
+               <div class="tab-content">
+                 <div class="tab-pane active" id="link" role="tabpanel" aria-labelledby="link-tab">
+				    <!-- Table for the links -->
+					<table id="link_table" class="table">
+					 <thead><tr><th>Link</th><th>Used</th><th>Note</th></tr></thead>
+					 <tbody></tbody> 
+					</table>
+					<!--Form for creating Links -->
+					<div class="text-center">
+			            <form id="form_links" >
+						    <label for="inputlinks" class="col-form-label">Number of Links</label>                            
+                            <input type="text" id="inputlinks" class="form-control" />
+							<button class="btn btn-primary col-md-2" type="submit" id="submit_createlinks">Invio</button>
+                        </form>
+                    </div>
+				 </div>
+                 <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">Cacca</div>
+                 <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">Banana</div>
+                 <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">Ciao</div>
+               </div>
+             </div>
+          </div>
+		
+	
+	</div>
+	<!-- Javascripts Script for the page --> 
+    <script  src="../js/admin.js"></script> 
+    <script  src="../js/utils.js"></script>
+ 
+    <!-- Javascript Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>	
+</body>
+</html>

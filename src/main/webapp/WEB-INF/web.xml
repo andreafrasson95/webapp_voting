@@ -9,7 +9,7 @@
 	<description>Web Application for polls</description>
 
     <servlet>
-	<servlet-name>VoteServlet</servlet-name>
+	    <servlet-name>VoteServlet</servlet-name>
 		<servlet-class>it.frassi.servlet.VoteServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
@@ -17,7 +17,16 @@
 		<url-pattern>/vote/*</url-pattern>
 	</servlet-mapping>
 	 
-	 
+
+	<servlet>
+        <servlet-name>AdminServlet</servlet-name>
+		<servlet-class>it.frassi.servlet.AdminServlet</servlet-class>
+	</servlet>	
+	
+	<servlet-mapping>
+		<servlet-name>AdminServlet</servlet-name>
+		<url-pattern>/admin/*</url-pattern>
+	</servlet-mapping>
 	
 	<resource-ref>
       <description>Connection pool to the database</description>
