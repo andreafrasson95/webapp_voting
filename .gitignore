@@ -69,3 +69,6 @@ tomcat-logs/
 
 ### OSX ###
 .DS_Store
+
+# Files with sensitive information
+src/main/webapp/META-INF/context.xml
