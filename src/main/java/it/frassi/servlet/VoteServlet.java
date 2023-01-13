@@ -10,7 +10,6 @@ import it.frassi.resource.Message;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -79,7 +78,6 @@ public class VoteServlet extends AbstractDatabaseServlet{
 	    String link_url=parts[0];
 		
 		Link link=null;
-		Message m=null;
 		String answer=null;
 		int a=0;
 		

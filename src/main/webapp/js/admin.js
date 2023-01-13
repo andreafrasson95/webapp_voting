@@ -24,7 +24,7 @@ function doClick(element){
 	
 	var poll=element.getAttribute("value");
 	
-	$.getJSON("http://localhost:8080/poll-webapp-0.1/admin/", { operation: "listLinks", poll: poll})
+	$.getJSON("http://195.231.83.161:8080/poll-webapp-0.1/admin/", { operation: "listLinks", poll: poll})
 	    .done(function(json){
 			$('#spinner').remove();
 			//Save the Json with links in a map
@@ -65,7 +65,7 @@ function doClick(element){
 
 function retrievePolls(){
 	
-	$.getJSON("http://localhost:8080/poll-webapp-0.1/admin/", { operation: "listPolls"})
+	$.getJSON("http://195.231.83.161:8080/poll-webapp-0.1/admin/", { operation: "listPolls"})
 	    .done(function(json){
 			$.each(json.polls, function (i, data){
 				
@@ -83,7 +83,7 @@ function createLinks(event){
 	var old_length=old_links.length;
 	//var old_pages=Math.trunc((old_length/10)+1);
 	
-	$.post("http://localhost:8080/poll-webapp-0.1/admin/", {operation: "createLinks", number: number, poll: operating_poll})
+	$.post("http://195.231.83.161:8080/poll-webapp-0.1/admin/", {operation: "createLinks", number: number, poll: operating_poll})
 	     .done(function(json){
 			 new_links=old_links.concat(json.links);
 			 console.log(new_links);
@@ -115,7 +115,7 @@ function updateNotes(event){
 		console.log("Invariato");
 	}
     else{ 
-	    $.post("http://localhost:8080/poll-webapp-0.1/admin/", {operation: "updateNotes", link: id, notes: current});
+	    $.post("http://195.231.83.161:8080/poll-webapp-0.1/admin/", {operation: "updateNotes", link: id, notes: current});
 	}
 }
 		 

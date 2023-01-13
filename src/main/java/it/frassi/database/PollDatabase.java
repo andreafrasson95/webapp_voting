@@ -94,6 +94,8 @@ public class PollDatabase{
          ResultSet rs=null;
          List<Poll> lista=new ArrayList<>();
 
+		 System.out.println("Qua sonoXDXDD");
+
          try{
               pstmt=con.prepareStatement(query);
 
@@ -102,7 +104,11 @@ public class PollDatabase{
               while(rs.next()){
                 	 lista.add(new Poll(rs.getInt(1), rs.getString(2), rs.getString(3)));
 			  }
-		 } 			  
+		 }
+		 
+		 catch (SQLException e){
+			System.out.println(e.getSQLState());
+		 }
 
          finally{
 			  if(rs != null){
