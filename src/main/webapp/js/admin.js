@@ -1,32 +1,43 @@
 
 var operating_poll;
-var number_pages;
+var number_pages=0;
 
 var focus_text;
 
 const map= new Map();
 
 $(document).ready(function(){
-	
+
+	number_pages=0;
 	retrievePolls();
-	
+
+	//$(".tab-pane").append("<div class='d-flex justify-content-center' id='spinner'"+this.id+"'><div class='spinner-border text-primary' role='status'><span class='visually-hidden'>Loading...</span></div></div>");
+	$("#form_links").hide();
+	$("#form_links").submit(createLinks);
+
 	$("#select").on("click","option",function(){
-		$(".tab-pane").append("<div class='d-flex justify-content-center' id='spinner'><div class='spinner-border text-primary' role='status'><span class='visually-hidden'>Loading...</span></div></div>");
-		
-		doClick(this);
-	    
+		retrieveLinks(this);
+		retrieveAnswers(this);
+
 	});
+	    
 
 });
 
 
-function doClick(element){
+function retrieveLinks(element){
 	
 	var poll=element.getAttribute("value");
-	
+
+    // Put Spinner  
+	$("#link").append("<div class='d-flex justify-content-center' id='spinnerlink'><div class='spinner-border text-primary' role='status'><span class='visually-hidden'>Loading...</span></div></div>");
+	$('#pages').html("");
+	$("#form_links").hide();
+
 	$.getJSON("http://195.231.83.161:8080/poll-webapp-0.1/admin/", { operation: "listLinks", poll: poll})
 	    .done(function(json){
-			$('#spinner').remove();
+			$('#spinnerlink').remove();
+
 			//Save the Json with links in a map
 			map.set(poll,json.links);
 			
@@ -39,12 +50,10 @@ function doClick(element){
 			else{
 				number_pages=Math.trunc((lenght/10)+1);
 			}
-				
-		    //I print the first links
+
+			//I print the first Page
 			printLinks(poll,1);
-				 
 				
-			$("#link").append("<nav aria-label='Page navigation example'><ul class='pagination justify-content-center' id='pages'></ul></nav>");
 			for(let i=1;i<=number_pages;i++){
 				$("#pages").append("<li class='page-item' id=linkpage"+i+"><a class='page-link' href='#'>"+i+"</a></li>");
 				$('#linkpage'+i).click(function() {
@@ -52,16 +61,31 @@ function doClick(element){
 				});
 					 
 			}
+
+			$("#form_links").show();
 					 
 	});
 	//Put the poll id in the table
     $('#link_table').attr("poll",poll);
     operating_poll=poll;	
-    $("#form_links").submit(createLinks);
 }
 		
 	
+function retrieveAnswers(element){
 
+    $("#answer_table tbody").html("");
+	$("#answer").append("<div class='d-flex justify-content-center' id='spinneranswers'><div class='spinner-border text-primary' role='status'><span class='visually-hidden'>Loading...</span></div></div>");
+
+	var poll=element.getAttribute("value");
+	
+	$.getJSON("http://195.231.83.161:8080/poll-webapp-0.1/admin/", { operation: "listAnswers", poll: poll})
+	    .done(function(json){
+			$.each(json.answers, function (i, data){
+				$('#spinneranswers').remove();
+				$("#answer_table tbody").append("<tr><td>"+data.text+"</td><td>"+data.votes+"</td></tr>");
+			});
+		});
+}
 
 function retrievePolls(){
 	
@@ -89,8 +113,8 @@ function createLinks(event){
 			 console.log(new_links);
 			 map.set(operating_poll,new_links);
 			 
-			 var ex1=old_length % 10;
-			 if((ex1+number)<=10){
+			 var ex1=(old_length % 10);
+			 if((parseInt(ex1)+parseInt(number))<=10){
 				 printLinks(operating_poll, number_pages);
 			 }
 			 else{
@@ -107,6 +131,8 @@ function createLinks(event){
 }
 
 function updateNotes(event){
+
+	event.preventDefault();
 	
 	var current=$(event.target).val()
 	var id=($(event.target).attr('id')).substr(4);
@@ -115,7 +141,12 @@ function updateNotes(event){
 		console.log("Invariato");
 	}
     else{ 
-	    $.post("http://195.231.83.161:8080/poll-webapp-0.1/admin/", {operation: "updateNotes", link: id, notes: current});
+	    $.post("http://195.231.83.161:8080/poll-webapp-0.1/admin/", {operation: "updateNotes", link: id, notes: current})
+		  .done(function(){
+              console.log('ok');
+  
+
+		  });
 	}
 }
 		 

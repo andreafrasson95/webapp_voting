@@ -11,5 +11,5 @@ $(document).ready(function(){
 function loadnavbar(){
 	
 	$.get(contextPath+'html/navbar.html').done(function(data){
-	$("nav").html(data);});
+	$("#navbar").html(data);});
 }

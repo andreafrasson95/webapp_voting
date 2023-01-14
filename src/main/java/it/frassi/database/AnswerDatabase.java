@@ -92,7 +92,6 @@ public class AnswerDatabase{
 	 
 	 public int voteAnswer(int poll, int id) throws SQLException{
 		 
-		 
 		 String query="UPDATE poll.Answers SET votes_received = votes_received + 1 WHERE answerid=? and votingid=?";
 		 
 		 PreparedStatement pstmt=null;

@@ -18,7 +18,7 @@
 	    
 	<!-- Navbar -->
  
-    <nav class="navbar navbar-dark bg-primary"></nav>
+    <nav id='navbar' class="navbar navbar-dark bg-primary"></nav>
     <br/><br/>
 
     <!-- Area Admin -->	
@@ -37,7 +37,7 @@
                    <button class="nav-link active" id="link-tab" data-bs-toggle="tab" data-bs-target="#link" type="button" role="tab" aria-controls="link" aria-selected="true">Links</button>
                  </li>
                  <li class="nav-item" role="presentation">
-                   <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
+                   <button class="nav-link" id="answer-tab" data-bs-toggle="tab" data-bs-target="#answer" type="button" role="tab" aria-controls="answer" aria-selected="false">Answers</button>
                  </li>
                  <li class="nav-item" role="presentation">
                    <button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false">Messages</button>
@@ -50,21 +50,35 @@
                <!-- Tab panes -->
                <div class="tab-content">
                  <div class="tab-pane active" id="link" role="tabpanel" aria-labelledby="link-tab">
-				    <!-- Table for the links -->
-					<table id="link_table" class="table">
-					 <thead><tr><th>Link</th><th>Used</th><th>Note</th></tr></thead>
-					 <tbody></tbody> 
-					</table>
-					<!--Form for creating Links -->
-					<div class="text-center">
-			            <form id="form_links" >
-						    <label for="inputlinks" class="col-form-label">Number of Links</label>                            
-                            <input type="text" id="inputlinks" class="form-control" />
-							<button class="btn btn-primary col-md-2" type="submit" id="submit_createlinks">Invio</button>
-                        </form>
-                    </div>
-				 </div>
-                 <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">Cacca</div>
+				       <!-- Table for the links -->
+					       <table id="link_table" class="table">
+					         <thead><tr><th>Link</th><th>Used</th><th>Note</th></tr></thead>
+					         <tbody></tbody> 
+					       </table>
+					     <!--Form for creating Links -->
+				         <div class="text-center">
+			             <form id="form_links" >
+						         <label for="inputlinks" class="col-form-label">Number of Links</label>                            
+                     <input type="text" id="inputlinks" class="form-control" />
+							       <button class="btn btn-primary col-md-2" type="submit" id="submit_createlinks">Invio</button>
+                    </form>
+                  </div>
+                <!-- Page Selector-->
+                 <nav aria-label='Page navigation example'><ul class='pagination justify-content-center' id='pages'></ul></nav>
+				         </div>
+
+
+                 <!-- Table for the Answers-->
+                 <div class="tab-pane" id="answer" role="tabpanel" aria-labelledby="answer-tab">
+                  <table id="answer_table" class="table">
+                    <thead><tr><th>Answer</th><th>Votes</th></tr></thead>
+                    <tbody></tbody> 
+                  </table>
+
+
+
+
+                 </div>
                  <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">Banana</div>
                  <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">Ciao</div>
                </div>

@@ -20,7 +20,7 @@ CREATE TABLE poll.Link (
     linkid VARCHAR(64) PRIMARY KEY,
     used BOOLEAN DEFAULT 'false' NOT NULL,
 	votingid INTEGER NOT NULL,
-	note VARCHAR(64)
+	notes VARCHAR(64)
 );
 
 COMMENT ON TABLE poll.Link IS 'Represents the links for voting';

@@ -226,7 +226,7 @@ public class LinkDatabase{
 	 
 	 public int updateNotes(String link, String notes) throws SQLException{
 		 
-		 String query="UPDATE poll.Link SET note=? WHERE linkid=?";
+		 String query="UPDATE poll.Link SET notes=? WHERE linkid=?";
 		 
 		 PreparedStatement pstmt=null;
 		 int rs;

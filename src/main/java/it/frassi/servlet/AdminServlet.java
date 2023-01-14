@@ -3,7 +3,8 @@ package it.frassi.servlet;
 
 import it.frassi.resource.Link;
 import it.frassi.resource.Poll;
-
+import it.frassi.resource.Answer;
+import it.frassi.database.AnswerDatabase;
 import it.frassi.database.LinkDatabase;
 import it.frassi.database.PollDatabase;
 
@@ -45,7 +46,20 @@ public class AdminServlet extends AbstractDatabaseServlet{
 			 res.setStatus(HttpServletResponse.SC_OK);
 			 res.setContentType("application/json");	
              res.getWriter().write(links.toString());
-		 }
+		}
+
+		if(op.equals("listAnswers")){
+
+			int poll=Integer.parseInt(req.getParameter("poll"));
+
+			List<Answer> answers_list=new AnswerDatabase(getDataSource().getConnection()).retrieveAnswers(poll);
+
+			JSONObject answers=new JSONObject();
+			answers.put("answers", answers_list);
+			res.setStatus(HttpServletResponse.SC_OK);
+			res.setContentType("application/json");	
+			res.getWriter().write(answers.toString());
+		}
 	  }
 	  
 	  catch(SQLException ex){
