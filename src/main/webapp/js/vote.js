@@ -8,7 +8,6 @@ $(document).ready(function(){
 
 function sendData(event){
 	
-	
 	event.preventDefault();
 	
 	if((document.querySelector('.needs-validation')).checkValidity() == true){

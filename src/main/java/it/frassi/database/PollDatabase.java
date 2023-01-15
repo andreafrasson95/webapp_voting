@@ -27,6 +27,51 @@ public class PollDatabase{
 	public PollDatabase(final Connection con){
 		this.con=con;
 	}
+
+	/**
+     * Insert new Poll in the Database
+	 *
+	 * @param Poll 
+	 *            Poll to the inserted
+	 *
+	 * @return 0 if ok, -1 otherwise 
+     *
+     * @throws SQLException	 
+     *	          if error with the database
+	 */	 
+
+
+	 public int insertPoll(Poll poll) throws SQLException{
+
+		String poll_query="INSERT INTO poll.Voting VALUES (default, ?, ?)";
+		String answer_query="INSERT INTO poll.Answers VALUES (default, ?, default, ?)";
+
+		PreparedStatement pstmt=null;
+		int rs=0;
+
+		try{
+			pstmt=con.prepareStatement(poll_query);
+			pstmt.setString(1, poll.getQuestion());
+			pstmt.setString(2,poll.getName());
+
+			rs=pstmt.executeUpdate();
+
+			if(rs<1) return -1;
+
+
+
+		}
+
+		finally{
+			
+			if(pstmt !=null){
+			  pstmt.close();
+			}
+			con.close();
+	   }
+
+	   return 0;
+	 }
 	
 	/**
      * Retrive Poll in the Database, if not found return null
