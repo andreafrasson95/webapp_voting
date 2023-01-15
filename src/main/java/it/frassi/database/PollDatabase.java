@@ -44,7 +44,7 @@ public class PollDatabase{
 	 public int insertPoll(Poll poll) throws SQLException{
 
 		String poll_query="INSERT INTO poll.Voting VALUES (default, ?, ?)";
-		String answer_query="INSERT INTO poll.Answers VALUES (default, ?, default, ?)";
+		//String answer_query="INSERT INTO poll.Answers VALUES (default, ?, default, ?)";
 
 		PreparedStatement pstmt=null;
 		int rs=0;
@@ -57,9 +57,6 @@ public class PollDatabase{
 			rs=pstmt.executeUpdate();
 
 			if(rs<1) return -1;
-
-
-
 		}
 
 		finally{
