@@ -115,4 +115,54 @@ public class AnswerDatabase {
 		return rs;
 	}
 
+		/**
+	 * Add the Answers to the Database
+	 *
+	 * @param answers
+	 *             The list of the answers
+	 *
+	 * @param poll
+	 *             The id of the poll who owns the answer
+	 *
+	 * @return the number of answers inserted in the database, -1 in case of error
+	 *
+	 * @throws SQLException
+	 *                      if error with the database
+	 */
+
+	 public int insertAnswers(List<Answer> answers, int poll) throws SQLException{
+
+		String query= "INSERT INTO poll.Answers VALUES (default, ?, default, ?)";
+
+		PreparedStatement pstmt= null;
+		int answers_inserted=0;
+
+
+		try{
+            pstmt=con.prepareStatement(query);
+			pstmt.setInt(2, poll);
+
+			for(int i=0; i<answers.size(); i++){
+				pstmt.setString(1,answers.get(i).getText());
+				pstmt.executeQuery();
+				answers_inserted++;
+				System.out.println(i);
+			}
+		}
+		catch(SQLException e){
+
+			//DB error
+		}
+
+		finally{
+			if (pstmt != null) {
+				pstmt.close();
+			}
+			con.close();
+		}
+
+		return answers_inserted;
+
+	 }
+
 }

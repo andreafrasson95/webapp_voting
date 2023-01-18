@@ -45,6 +45,10 @@ public class Answer{
 		this.votes=votes;
 		this.poll=poll;
 	}
+
+	public Answer(String text){
+		this.text=text;
+	}
 	
 	
     /**

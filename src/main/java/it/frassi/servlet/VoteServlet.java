@@ -134,7 +134,9 @@ public class VoteServlet extends AbstractDatabaseServlet{
 		}
 			
  
-        catch (SQLException ex){ System.out.println("Problema");}
+        catch (SQLException ex){ 
+			System.out.println("Error");
+		}
 
     }
 }

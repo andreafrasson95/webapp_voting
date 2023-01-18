@@ -35,6 +35,11 @@ public class Poll{
 		this.question=question;
 		this.name=name;
 	}
+
+	public Poll(String question, String name){
+		this.question=question;
+		this.name=name;
+	}
 	
 	
     /**

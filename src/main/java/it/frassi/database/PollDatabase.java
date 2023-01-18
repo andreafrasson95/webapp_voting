@@ -44,7 +44,6 @@ public class PollDatabase{
 	 public int insertPoll(Poll poll) throws SQLException{
 
 		String poll_query="INSERT INTO poll.Voting VALUES (default, ?, ?)";
-		//String answer_query="INSERT INTO poll.Answers VALUES (default, ?, default, ?)";
 
 		PreparedStatement pstmt=null;
 		int rs=0;
@@ -135,8 +134,6 @@ public class PollDatabase{
          PreparedStatement pstmt=null;
          ResultSet rs=null;
          List<Poll> lista=new ArrayList<>();
-
-		 System.out.println("Qua sonoXDXDD");
 
          try{
               pstmt=con.prepareStatement(query);

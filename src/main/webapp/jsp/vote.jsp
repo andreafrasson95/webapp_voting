@@ -21,7 +21,7 @@
     <body>
       <!-- Navbar -->
 
-      <nav class="navbar navbar-dark bg-primary"></nav>
+      <nav id="navbar" class="navbar navbar-dark bg-primary"></nav>
       <br /><br />
 
       <!-- Domanda -->
@@ -50,7 +50,7 @@
                   </label>
 
                   <c:if test="${loop.last}">
-                    <div class="invalid-feedback">Ne devi Selezionare uno mona</div>
+                    <div class="invalid-feedback">You have to select one option</div>
                   </c:if>
 
                 </div>

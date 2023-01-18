@@ -12,10 +12,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.BufferedReader;
 import java.sql.SQLException;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.List;
+import java.util.ArrayList;
 
 public class AdminServlet extends AbstractDatabaseServlet{
 	
@@ -102,6 +105,53 @@ public class AdminServlet extends AbstractDatabaseServlet{
 			 else{
 				 //Modifica corretta
 			 }
+		 }
+
+		 if(op.equals("addPoll")){
+			 
+			/* For future JSON Conversion 
+			StringBuffer buffer = new StringBuffer();
+			String line = null;
+			try{
+			  BufferedReader reader = req.getReader();
+			  while ((line = reader.readLine()) != null)
+				buffer.append(line);
+			
+			  JSONObject test=new JSONObject(buffer.toString());
+
+			  System.out.println(test.getInt("poll"));
+
+			}
+
+			catch(IOException e){
+
+				//Handling
+			}
+
+			catch(JSONException e){
+				//Handling
+			}
+            */
+
+			String name=req.getParameter("poll");
+			String question=req.getParameter("question");
+			int answer_number=Integer.parseInt(req.getParameter("answer_number"));
+
+			List<Answer> list=new ArrayList<>();
+
+			for(int i=0; i<answer_number; i++){
+				list.add(new Answer(req.getParameter("answer"+i)));
+			}
+
+			Poll poll=new Poll(question, name);
+			int j=new PollDatabase(getDataSource().getConnection()).insertPoll(poll);
+
+			j=new AnswerDatabase(getDataSource().getConnection()).insertAnswers(list, 2);
+			
+		
+
+
+
 		 }
 		  
 	  }

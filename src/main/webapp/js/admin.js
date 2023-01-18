@@ -1,6 +1,6 @@
 
 var operating_poll;
-var number_pages = 0;
+var number_pages
 
 var focus_text;
 
@@ -41,14 +41,14 @@ function retrieveLinks(element) {
 			//Save the Json with links in a map
 			map.set(poll, json.links);
 
-			var lenght = Object.keys(json.links).length;
+			var length = Object.keys(json.links).length;
 
 
-			if ((lenght % 10) == 0) {
-				number_pages = lenght / 10;
+			if ((length % 10) == 0) {
+				number_pages = length / 10;
 			}
 			else {
-				number_pages = Math.trunc((lenght / 10) + 1);
+				number_pages = Math.trunc((length / 10) + 1);
 			}
 
 			//I print the first Page
