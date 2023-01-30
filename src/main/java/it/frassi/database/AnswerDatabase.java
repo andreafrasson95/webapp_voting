@@ -140,13 +140,12 @@ public class AnswerDatabase {
 
 		try{
             pstmt=con.prepareStatement(query);
-			pstmt.setInt(2, poll);
 
 			for(int i=0; i<answers.size(); i++){
 				pstmt.setString(1,answers.get(i).getText());
-				pstmt.executeQuery();
+				pstmt.setInt(2, poll);
+				pstmt.executeUpdate();
 				answers_inserted++;
-				System.out.println(i);
 			}
 		}
 		catch(SQLException e){

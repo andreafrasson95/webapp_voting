@@ -34,7 +34,7 @@ public class PollDatabase{
 	 * @param Poll 
 	 *            Poll to the inserted
 	 *
-	 * @return 0 if ok, -1 otherwise 
+	 * @return the id of the poll if ok, -1 otherwise 
      *
      * @throws SQLException	 
      *	          if error with the database
@@ -43,19 +43,23 @@ public class PollDatabase{
 
 	 public int insertPoll(Poll poll) throws SQLException{
 
-		String poll_query="INSERT INTO poll.Voting VALUES (default, ?, ?)";
+		String poll_query="INSERT INTO poll.Voting VALUES (default, ?, ?) RETURNING votingid";
 
 		PreparedStatement pstmt=null;
-		int rs=0;
+		ResultSet rs=null;
+		//int rs=0;
 
 		try{
 			pstmt=con.prepareStatement(poll_query);
 			pstmt.setString(1, poll.getQuestion());
 			pstmt.setString(2,poll.getName());
 
-			rs=pstmt.executeUpdate();
+			rs=pstmt.executeQuery();
 
-			if(rs<1) return -1;
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+			else return -1;
 		}
 
 		finally{
@@ -66,7 +70,6 @@ public class PollDatabase{
 			con.close();
 	   }
 
-	   return 0;
 	 }
 	
 	/**

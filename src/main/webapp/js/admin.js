@@ -1,4 +1,6 @@
 
+var admin_url='http://195.231.83.161:8080/poll-webapp-0.1/admin/';
+
 var operating_poll;
 var number_pages
 
@@ -78,7 +80,7 @@ function retrieveAnswers(element) {
 
 	var poll = element.getAttribute("value");
 
-	$.getJSON("http://195.231.83.161:8080/poll-webapp-0.1/admin/", { operation: "listAnswers", poll: poll })
+	$.getJSON(admin_url, { operation: "listAnswers", poll: poll })
 		.done(function (json) {
 			$.each(json.answers, function (i, data) {
 				$('#spinneranswers').remove();
@@ -89,7 +91,7 @@ function retrieveAnswers(element) {
 
 function retrievePolls() {
 
-	$.getJSON("http://195.231.83.161:8080/poll-webapp-0.1/admin/", { operation: "listPolls" })
+	$.getJSON(admin_url, { operation: "listPolls" })
 		.done(function (json) {
 			$.each(json.polls, function (i, data) {
 
@@ -107,8 +109,13 @@ function createLinks(event) {
 	var old_length = old_links.length;
 	//var old_pages=Math.trunc((old_length/10)+1);
 
-	$.post("http://195.231.83.161:8080/poll-webapp-0.1/admin/", { operation: "createLinks", number: number, poll: operating_poll })
-		.done(function (json) {
+	$.ajax({
+		type: 'POST',
+		url: admin_url,
+		data: JSON.stringify({'operation': 'createLinks', 'number': number, 'poll': operating_poll}), 
+		contentType: "application/json",
+		dataType: 'json'
+	}).done(function (json) {
 			new_links = old_links.concat(json.links);
 			console.log(new_links);
 			map.set(operating_poll, new_links);
@@ -141,12 +148,15 @@ function updateNotes(event) {
 		console.log("Invariato");
 	}
 	else {
-		$.post("http://195.231.83.161:8080/poll-webapp-0.1/admin/", { operation: "updateNotes", link: id, notes: current })
-			.done(function () {
+		$.ajax({
+			type: 'POST',
+			url: admin_url,
+			data: JSON.stringify({'operation': 'updateNotes', 'link': id, 'notes': current}), 
+			contentType: "application/json",
+			dataType: 'json'
+		}).done(function () {
 				console.log('ok');
-
-
-			});
+		});
 	}
 }
 
