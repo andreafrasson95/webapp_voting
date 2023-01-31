@@ -130,6 +130,8 @@ public class AdminServlet extends AbstractDatabaseServlet {
 				System.out.println(j);
 				int returned_answers = new AnswerDatabase(getDataSource().getConnection()).insertAnswers(list, j);
 
+				res.setStatus(HttpServletResponse.SC_NO_CONTENT);
+
 			}
 		}
 
