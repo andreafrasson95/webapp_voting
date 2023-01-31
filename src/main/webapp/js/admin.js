@@ -41,7 +41,7 @@ function retrieveLinks(element) {
 	$('#pages').html("");
 	$("#form_links").hide();
 
-	$.getJSON("http://195.231.83.161:8080/poll-webapp-0.1/admin/", { operation: "listLinks", poll: poll })
+	$.getJSON(admin_url, { operation: "listLinks", poll: poll })
 		.done(function (json) {
 			$('#spinnerlink').remove();
 
@@ -129,6 +129,8 @@ function createLinks(event) {
 			map.set(operating_poll, new_links);
 
 			var ex1 = (old_length % 10);
+			//Ugly for now
+			if(ex1==0 && old_length>0) ex1=10;
 			if ((parseInt(ex1) + parseInt(number)) <= 10) {
 				printLinks(operating_poll, number_pages);
 			}
