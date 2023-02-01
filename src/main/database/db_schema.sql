@@ -36,12 +36,16 @@ COMMENT ON COLUMN poll.Link.votingid IS 'The poll who own the link';
 CREATE TABLE poll.Voting (
     votingid SERIAL PRIMARY KEY,
 	question VARCHAR(64) NOT NULL,
-	name VARCHAR(64) NOT NULL
+	name VARCHAR(64) NOT NULL,
+	poll_start timestamp without time zone,
+	poll_end timestamp without time zone
 );
 
 COMMENT ON TABLE poll.Voting IS 'Represents the polls';
 COMMENT ON COLUMN poll.Voting.votingid IS 'The ID of this poll';
 COMMENT ON COLUMN poll.Voting.question IS 'The Question of the poll';
+COMMENT ON COLUMN poll.Voting.poll_start IS 'Indicates from when answers are acceptable';
+COMMENT ON COLUMN poll.Voting.question IS 'The date and the time of poll end';
 
 --
 -- This table represent the answers

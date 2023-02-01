@@ -19,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.List;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 public class AdminServlet extends AbstractDatabaseServlet {
 
@@ -119,6 +120,15 @@ public class AdminServlet extends AbstractDatabaseServlet {
 				String question = json.getString("question");
 				JSONArray answers = json.getJSONArray("answers");
 				int nr_answers = answers.length();
+
+				//Dates Handling
+				if(json.getString("start_date")!=null){
+                      System.out.println(LocalDateTime.parse(json.getString("start_date")));
+
+
+
+
+				}
 
 				List<Answer> list = new ArrayList<>();
 				for (int i = 0; i < nr_answers; i++) {

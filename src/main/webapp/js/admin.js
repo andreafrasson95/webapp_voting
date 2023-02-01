@@ -114,7 +114,6 @@ function createLinks(event) {
 	var number = $("#inputlinks").val()
 	var old_links = map.get(operating_poll);
 	var old_length = old_links.length;
-	console.log(old_length);
 	//var old_pages=Math.trunc((old_length/10)+1);
 
 	$.ajax({
