@@ -44,15 +44,19 @@ public class Poll{
      * @param question
 	 *       The text of the question
 	 */
- 	public Poll(int id, String question, String name){
+ 	public Poll(int id, String question, String name, LocalDateTime start, LocalDateTime end){
 		this.id=id;
 		this.question=question;
 		this.name=name;
+		this.start=start;
+		this.end=end;
 	}
 
-	public Poll(String question, String name){
+	public Poll(String question, String name, LocalDateTime start, LocalDateTime end){
 		this.question=question;
 		this.name=name;
+		this.start=start;
+		this.end=end;
 	}
 	
 	

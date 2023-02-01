@@ -121,13 +121,14 @@ public class AdminServlet extends AbstractDatabaseServlet {
 				JSONArray answers = json.getJSONArray("answers");
 				int nr_answers = answers.length();
 
-				//Dates Handling
+				LocalDateTime start=null;
+				LocalDateTime end=null;
+
 				if(json.getString("start_date")!=null){
-                      System.out.println(LocalDateTime.parse(json.getString("start_date")));
-
-
-
-
+				start=LocalDateTime.parse(json.getString("start_date"));
+				}
+				if(json.getString("end_date")!=null){
+				end=LocalDateTime.parse(json.getString("end_date"));
 				}
 
 				List<Answer> list = new ArrayList<>();
@@ -135,9 +136,8 @@ public class AdminServlet extends AbstractDatabaseServlet {
 					list.add(new Answer(answers.getString(i)));
 				}
 
-				Poll poll = new Poll(question, name);
+				Poll poll = new Poll(question, name, start, end);
 				int j = new PollDatabase(getDataSource().getConnection()).insertPoll(poll);
-				System.out.println(j);
 				int returned_answers = new AnswerDatabase(getDataSource().getConnection()).insertAnswers(list, j);
 
 				res.setStatus(HttpServletResponse.SC_NO_CONTENT);

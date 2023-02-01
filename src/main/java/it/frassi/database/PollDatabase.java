@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 public class PollDatabase{
 	
@@ -44,7 +45,7 @@ public class PollDatabase{
 
 	 public int insertPoll(Poll poll) throws SQLException{
 
-		String poll_query="INSERT INTO poll.Voting VALUES (default, ?, ?) RETURNING votingid";
+		String poll_query="INSERT INTO poll.Voting VALUES (default, ?, ?, ?, ?) RETURNING votingid";
 
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -54,6 +55,9 @@ public class PollDatabase{
 			pstmt=con.prepareStatement(poll_query);
 			pstmt.setString(1, poll.getQuestion());
 			pstmt.setString(2,poll.getName());
+
+			pstmt.setTimestamp(3, Timestamp.valueOf(poll.getStart()));
+			pstmt.setTimestamp(4, Timestamp.valueOf(poll.getEnd()));
 
 			rs=pstmt.executeQuery();
 
@@ -100,7 +104,17 @@ public class PollDatabase{
 			  rs=pstmt.executeQuery();
 			  
 			  if(rs.next()){
-			         ret=new Poll(rs.getInt(1), rs.getString(2), rs.getString(3));
+				     LocalDateTime start=null;
+					 LocalDateTime end=null;
+
+					 Timestamp tmp=null;
+
+                     tmp=rs.getTimestamp(4);
+					 if(tmp != null) start=tmp.toLocalDateTime();
+					 tmp=rs.getTimestamp(5);
+					 if(tmp != null) end=tmp.toLocalDateTime();
+		
+			         ret=new Poll(rs.getInt(1), rs.getString(2), rs.getString(3), start, end);
 			  }
 			  else
 			  {
@@ -145,7 +159,17 @@ public class PollDatabase{
               rs=pstmt.executeQuery();
 
               while(rs.next()){
-                	 lista.add(new Poll(rs.getInt(1), rs.getString(2), rs.getString(3)));
+				LocalDateTime start=null;
+				LocalDateTime end=null;
+
+				Timestamp tmp=null;
+
+				tmp=rs.getTimestamp(4);
+				if(tmp != null) start=tmp.toLocalDateTime();
+				tmp=rs.getTimestamp(5);
+			    if(tmp != null) end=tmp.toLocalDateTime();
+				    
+                lista.add(new Poll(rs.getInt(1), rs.getString(2), rs.getString(3), start, end));
 			  }
 		 }
 		 
