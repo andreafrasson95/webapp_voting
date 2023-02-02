@@ -7,8 +7,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.sql.Types;
 
 import java.util.List;
+
+import java.lang.NullPointerException;
+
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 
@@ -43,7 +47,7 @@ public class PollDatabase{
 	 */	 
 
 
-	 public int insertPoll(Poll poll) throws SQLException{
+	 public int insertPoll(Poll poll) throws SQLException, NullPointerException{
 
 		String poll_query="INSERT INTO poll.Voting VALUES (default, ?, ?, ?, ?) RETURNING votingid";
 
@@ -56,15 +60,29 @@ public class PollDatabase{
 			pstmt.setString(1, poll.getQuestion());
 			pstmt.setString(2,poll.getName());
 
-			pstmt.setTimestamp(3, Timestamp.valueOf(poll.getStart()));
-			pstmt.setTimestamp(4, Timestamp.valueOf(poll.getEnd()));
+            if(poll.getStart()==null)
+				pstmt.setNull(3, Types.TIMESTAMP);
+			else
+			    pstmt.setTimestamp(3, Timestamp.valueOf(poll.getStart()));
+
+		    if(poll.getEnd()==null)
+				pstmt.setNull(4, Types.TIMESTAMP);
+			else
+		        pstmt.setTimestamp(4, Timestamp.valueOf(poll.getEnd()));
 
 			rs=pstmt.executeQuery();
 
 			if(rs.next()){
 				return rs.getInt(1);
 			}
-			else return -1;
+			
+		}
+
+		catch(SQLException ex){
+			System.out.println(ex.getMessage());
+		}
+		catch(NullPointerException ex){
+			System.out.println(ex.getMessage());
 		}
 
 		finally{
@@ -74,7 +92,7 @@ public class PollDatabase{
 			}
 			con.close();
 	   }
-
+       return -1;
 	 }
 	
 	/**

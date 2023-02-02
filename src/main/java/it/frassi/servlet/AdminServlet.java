@@ -124,10 +124,10 @@ public class AdminServlet extends AbstractDatabaseServlet {
 				LocalDateTime start=null;
 				LocalDateTime end=null;
 
-				if(json.getString("start_date")!=null){
+				if(json.has("start_date")==true){
 				start=LocalDateTime.parse(json.getString("start_date"));
 				}
-				if(json.getString("end_date")!=null){
+				if(json.has("end_date")==true){
 				end=LocalDateTime.parse(json.getString("end_date"));
 				}
 
