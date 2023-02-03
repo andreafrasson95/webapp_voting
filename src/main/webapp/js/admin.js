@@ -27,7 +27,8 @@ $(document).ready(function () {
 
 	$("#PollForm").submit(addPoll);
     $('#adder').click(addAnswerBox);
-	  
+	$('#switchstart').click(enableDateStart);
+	$('#switchend').click(enableDateEnd);
 	  
 });
 
@@ -243,7 +244,19 @@ function addAnswerBox(){
 	});
 }
 
+function enableDateStart(){
 
+	$("#date_start").prop('disabled', function( i, val ) {
+		return !val;
+	  });
+}
+
+function enableDateEnd(){
+
+	$("#date_end").prop('disabled', function( i, val ) {
+		return !val;
+	  });
+}
 
 
 
