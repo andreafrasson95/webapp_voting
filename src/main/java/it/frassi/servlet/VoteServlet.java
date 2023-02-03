@@ -53,19 +53,19 @@ public class VoteServlet extends AbstractDatabaseServlet {
 
 					LocalDateTime now = LocalDateTime.now();
 					if (poll.getStart() != null) {
-						if ((poll.getStart().isAfter(now)) == false) {
+						if ((poll.getStart().isBefore(now)) == false) {
 							m = new Message("Poll is not started yet", "104", "Poll not Started");
 							time = -1;
 						}
 					}
 
 					if (poll.getEnd() != null) {
-						if ((poll.getEnd().isBefore(now)) == false) {
+						if ((poll.getEnd().isAfter(now)) == false) {
 							m = new Message("Poll is over", "105", "Poll finished");
 							time = -1;
 						}
 					}
-
+              
 					if (time != -1) {
 
 						// Retrieve the Answers
