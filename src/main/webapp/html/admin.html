@@ -128,6 +128,16 @@
               <label for="pollquestion" class="form-label">Question</label>
               <input class="form-control" name="question" id="pollquestion" placeholder="Insert the Question">
             </div>
+            <!-- Start date of the poll-->
+            <div class="row">
+              <div class="col-2 form-check form-switch">
+                <input class="form-check-input form-check form-switch" type="checkbox" id="flexSwitchCheckDefault">
+            </div>
+            <div class="col-10">
+              <label for="date_start" class="form-label">Poll Start</label>
+            <input type="datetime-local" id="date_start" name="start"  value="2023-02-03"  min="2018-01-01" max="2018-12-31" disabled>
+            </div>
+            </div>
             <div class="mb-3">
               <label for="answer1" class="form-label">Answers</label>
               <input class="form-control" name="answer" id="answer1" placeholder="Insert the Answer">
